@@ -13,20 +13,20 @@ Future<String> checkUser() async {
   return prefs.getString("user_id") ?? '';
 }
 
-Future<void> saveScore(String user, int score) async {
+Future<void> saveScore(String user, int correct, int score) async {
   final prefs = await SharedPreferences.getInstance();
 
   List<String> data = prefs.getStringList("scores") ?? [];
   List<List<String>> scores = data.map((e) => e.split("|")).toList();
 
-  scores.add([user, score.toString()]);
-  scores.sort((a, b) => int.parse(b[1]).compareTo(int.parse(a[1])));
+  scores.add([user, correct.toString(), score.toString()]);
+  scores.sort((a, b) => int.parse(b[2]).compareTo(int.parse(a[2])));
 
   if (scores.length > 3) {
     scores = scores.sublist(0, 3);
   }
 
-  List<String> saveData = scores.map((e) => "${e[0]}|${e[1]}").toList();
+  List<String> saveData = scores.map((e) => "${e[0]}|${e[1]}|${e[2]}").toList();
   prefs.setStringList("scores", saveData);
 }
 
@@ -268,7 +268,7 @@ class _GameState extends State<Game> {
   // ================= END =================
   void endGame() async {
     _timer?.cancel();
-    await saveScore(active_user.isEmpty ? "Guest" : active_user, _score);
+    await saveScore(active_user.isEmpty ? "Guest" : active_user, _jumlahJawabanBenar,_score);
 
     setState(() {
       _isGameOver = true;

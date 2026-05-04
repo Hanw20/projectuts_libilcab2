@@ -14,22 +14,13 @@ class Hasil extends StatelessWidget {
     required this.total,
   });
 
-  // ================= GELAR SESUAI SOAL =================
-  String getGelar() {
-    switch (correct) {
-      case 5:
-        return "Maestro dell'Indovinello (Master of Riddles)";
-      case 4:
-        return "Esperto dell'Indovinello (Expert of Riddles)";
-      case 3:
-        return "Abile Indovinatore (Skillful Guesser)";
-      case 2:
-        return "Principiante dell'Indovinello (Riddle Beginner)";
-      case 1:
-        return "Neofita dell'Indovinello (Riddle Novice)";
-      default:
-        return "Sfortunato Indovinatore (Unlucky Guesser)";
-    }
+   String getGelar() {
+    if (correct == 5) return "Maestro dell'Indovinello (Master of Riddles)";
+    else if (correct == 4) return "Esperto dell'Indovinello (Expert of Riddles)";
+    else if (correct == 3) return "Abile Indovinatore (Skillful Guesser)";
+    else if (correct == 2) return "Principiante dell'Indovinello (Riddle Beginner)";
+    else if (correct == 1) return "Neofita dell'Indovinello (Riddle Novice)";
+    else return "Sfortunato Indovinatore (Unlucky Guesser)";
   }
 
   @override

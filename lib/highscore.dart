@@ -11,6 +11,15 @@ class HighScore extends StatefulWidget {
 class _HighScoreState extends State<HighScore> {
   List<List<String>> scores = [];
 
+  String getGelar(int correct) {
+    if (correct == 5) return "Maestro dell'Indovinello (Master of Riddles)";
+    else if (correct == 4) return "Esperto dell'Indovinello (Expert of Riddles)";
+    else if (correct == 3) return "Abile Indovinatore (Skillful Guesser)";
+    else if (correct == 2) return "Principiante dell'Indovinello (Riddle Beginner)";
+    else if (correct == 1) return "Neofita dell'Indovinello (Riddle Novice)";
+    else return "Sfortunato Indovinatore (Unlucky Guesser)";
+  }
+
   Future<void> loadScores() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -37,6 +46,8 @@ class _HighScoreState extends State<HighScore> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(scores.length, (index) {
+                int correct = int.parse(scores[index][1]); // TAMBAH INI
+
                 return Container(
                   margin: const EdgeInsets.all(10),
                   padding: const EdgeInsets.all(15),
@@ -61,14 +72,40 @@ class _HighScoreState extends State<HighScore> {
                         ),
                       ),
 
-                      Text(
-                        scores[index][0], // USER
-                        style: const TextStyle(fontSize: 18),
+                      // UBAH JADI COLUMN UNTUK TAMBAH GELAR
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            scores[index][0], // USER
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            getGelar(correct), // GELAR
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
 
-                      Text(
-                        scores[index][1], // SCORE
-                        style: const TextStyle(fontSize: 18),
+                      // UBAH JADI COLUMN UNTUK TAMBAH JUMLAH BENAR
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            scores[index][2], // SCORE
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            "Benar: $correct/5", // JUMLAH BENAR
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

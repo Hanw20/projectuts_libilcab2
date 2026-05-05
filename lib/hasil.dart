@@ -44,7 +44,6 @@ class Hasil extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // SCORE
               Text(
                 "Total Score: $score",
                 style: const TextStyle(
@@ -55,7 +54,6 @@ class Hasil extends StatelessWidget {
 
               const SizedBox(height: 15),
 
-              // JUMLAH BENAR
               Text(
                 "$correct dari $total tebakan benar",
                 style: const TextStyle(fontSize: 20),
@@ -63,7 +61,6 @@ class Hasil extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // GELAR
               Text(
                 getGelar(),
                 textAlign: TextAlign.center,
@@ -76,7 +73,6 @@ class Hasil extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              // BUTTON PLAY AGAIN
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -89,7 +85,6 @@ class Hasil extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // BUTTON HIGHSCORE
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -102,7 +97,6 @@ class Hasil extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // BUTTON MAIN MENU (sementara balik ke game lagi kalau belum ada menu)
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);

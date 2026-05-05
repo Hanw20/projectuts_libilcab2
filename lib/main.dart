@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   void doLogout() async {
-    //later, we use web service here to check the user id and password
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("user_id");
     main();

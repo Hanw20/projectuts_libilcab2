@@ -7,7 +7,6 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 String active_user = "";
 
-// ================= USER =================
 Future<String> checkUser() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getString("user_id") ?? '';
@@ -30,7 +29,6 @@ Future<void> saveScore(String user, int correct, int score) async {
   prefs.setStringList("scores", saveData);
 }
 
-// ================= GAME =================
 class Game extends StatefulWidget {
   const Game({super.key});
 
@@ -59,7 +57,6 @@ class _GameState extends State<Game> {
   double _soalOpacity = 1.0;
   int? _tappedIndex;
 
-  // ================= FIX JUMLAH SOAL =================
   int get _totalSoal => 5;
 
   List<Question> bankSoal = [
@@ -165,7 +162,6 @@ class _GameState extends State<Game> {
     ),
   ];
 
-  // ================= INIT =================
   @override
   void initState() {
     super.initState();
@@ -183,7 +179,7 @@ class _GameState extends State<Game> {
     _soal.clear();
     _listGambar.clear();
 
-    // ================= RANDOM SEMUA SOAL =================
+    //Untuk random soal
     List<Question> filtered = List.from(bankSoal);
     filtered.shuffle();
     filtered = filtered.take(_totalSoal).toList();
@@ -202,19 +198,19 @@ class _GameState extends State<Game> {
     startMemorizing();
   }
 
-  // ================= MEMORY =================
+  //pertanyaan (start hapal)
   void startMemorizing() async {
     for (int i = 0; i < _listGambar.length; i++) {
       setState(() {
         _memoryIndex = i;
         _waktuHapal = _setWaktuHapal;
-        _imageOpacity = 0.0; // fade out dulu sebelum gambar baru muncul
+        _imageOpacity = 0.0; // fade out awal
       });
 
       await Future.delayed(const Duration(milliseconds: 300));
 
       setState(() {
-        _imageOpacity = 1.0; // fade in gambar
+        _imageOpacity = 1.0; // fade in
       });
 
       for (int t = _setWaktuHapal; t >= 0; t--) {
@@ -237,7 +233,7 @@ class _GameState extends State<Game> {
     startTimer();
   }
 
-  // ================= TIMER =================
+  // Memulai timer
   void startTimer() {
     _timer?.cancel();
     _waktuGame = _setWaktuGame;
@@ -253,7 +249,7 @@ class _GameState extends State<Game> {
     });
   }
 
-  // ================= ANSWER =================
+  // cek jawaban
   void answer(String selected) {
     _timer?.cancel();
 
@@ -267,7 +263,7 @@ class _GameState extends State<Game> {
     });
   }
 
-  // ================= NEXT =================
+  // untuk next soal
   void nextSoal() async {
     _timer?.cancel();
 
@@ -289,7 +285,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  // ================= END =================
+  // untuk endgame
   void endGame() async {
     _timer?.cancel();
     await saveScore(
@@ -314,7 +310,6 @@ class _GameState extends State<Game> {
     );
   }
 
-  // ================= UI =================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
